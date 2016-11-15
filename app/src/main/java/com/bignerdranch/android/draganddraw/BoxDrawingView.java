@@ -93,12 +93,15 @@ public class BoxDrawingView extends View {
             bundle.putFloatArray("box" + boxNumber, pointArray);
             boxNumber++;
         }
-
+        if(mBoxPaint.getColor()==0x2200ffff) {
+            bundle.putBoolean("color", true);
+        }
         return bundle;
     }
 
     @Override
     protected void onRestoreInstanceState(Parcelable state){
+        BoxDrawingView.mBoxen.clear();
         if(state instanceof Bundle) {
             Bundle bundle = (Bundle) state;
             super.onRestoreInstanceState(bundle.getParcelable(PARENT_STATE_KEY));
@@ -113,6 +116,15 @@ public class BoxDrawingView extends View {
 
                 mBoxen.add(box);
                 boxCount++;
+            }
+            super.onRestoreInstanceState(bundle.getParcelable("color"));
+            if(bundle.containsKey("color")==true){
+                BoxDrawingView.mBoxPaint.setColor(0x2200ffff);
+                BoxDrawingView.mBackgroundPaint.setColor(0xff000000);
+            }
+            else{
+                BoxDrawingView.mBoxPaint.setColor(0x22ff0000);
+                BoxDrawingView.mBackgroundPaint.setColor(0xfff8efe0);
             }
         }
         else{

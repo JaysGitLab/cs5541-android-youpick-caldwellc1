@@ -1,5 +1,6 @@
 package com.bignerdranch.android.draganddraw;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -38,13 +39,12 @@ public class DragAndDrawFragment extends Fragment {
         setHasOptionsMenu(true);
     }
 
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
         switch(item.getItemId()){
             case R.id.menu_item_color:
-                //BoxDrawingView boxDrawingView = BoxDrawingView.get(getActivity());
                 if(BoxDrawingView.mBoxPaint.getColor()==0x22ff0000){
-                    //BoxDrawingView.mBoxPaint.setColor(getResources().getColor(R.color.otherbox));
                     BoxDrawingView.mBoxPaint.setColor(0x2200ffff);
                     BoxDrawingView.mBackgroundPaint.setColor(0xff000000);
                 }
@@ -52,9 +52,13 @@ public class DragAndDrawFragment extends Fragment {
                     BoxDrawingView.mBoxPaint.setColor(0x22ff0000);
                     BoxDrawingView.mBackgroundPaint.setColor(0xfff8efe0);
                 }
+                mBoxDrawingView.setVisibility(View.GONE);
+                mBoxDrawingView.setVisibility(View.VISIBLE);
                 return true;
             case R.id.menu_item_clear:
                 BoxDrawingView.mBoxen.clear();
+                mBoxDrawingView.setVisibility(View.GONE);
+                mBoxDrawingView.setVisibility(View.VISIBLE);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
